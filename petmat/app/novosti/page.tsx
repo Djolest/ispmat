@@ -1,3 +1,11 @@
+'use client'
+
+import { useContext } from "react"
+import { isSaradnikContext } from "../layout"
+
 export default function NovostiPage() {
-    return (<p>Novosti!</p>)
+    const isSaradnik = useContext(isSaradnikContext);
+    return (
+        <p>Novosti! {isSaradnik.toString()}</p>
+    )
 }
