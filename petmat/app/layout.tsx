@@ -7,6 +7,7 @@ import Providers from './providers'
 import Nav from './ui/nav';
 import Title from "./ui/title";
 import { useState, useContext, createContext } from "react";
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +39,7 @@ export default function RootLayout({
             <Title setSaradnik={setSaradnik}/>
             <Nav />
             {children}
+            <Analytics />
           </isSaradnikContext.Provider>
         </Providers>
       </body>
