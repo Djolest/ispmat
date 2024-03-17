@@ -3,14 +3,14 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useContext, useState } from "react";
-import { isSaradnikContext } from "./../layout";
-import { auth } from "./../lib/autho";
+//import { isSaradnikContext } from "./../layout";
+import { auth, getter, reseter } from "./../lib/autho";
 import { FormEvent } from "react";
 
 
 export default function Title (props:any) {
     //console.log(props);
-    const isSaradnik = useContext(isSaradnikContext);
+    //const isSaradnik = useContext(isSaradnikContext);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -25,7 +25,7 @@ export default function Title (props:any) {
             const oce = auth({ime: name, pass: pass});
             console.log(oce);
             if(oce){
-                props.setSaradnik(true);
+                //props.setSaradnik(true);
                 alert('Dobrodošli saradniče!');
                 setShowModal(false)
                 return true
@@ -40,7 +40,7 @@ export default function Title (props:any) {
           <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
           >
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+            <div className="relative w-[400px] my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
@@ -60,10 +60,10 @@ export default function Title (props:any) {
                 {/*body*/}
                 <form onSubmit={onSubmit}>
                     <div className="m-5 p-2">
-                        <input type="text" name="Ime" autoComplete="name" placeholder="Ime" className="px-2 py-1 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full"/>
+                        <input type="text" name="Ime" autoComplete="name" placeholder="Ime" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                     </div>
                     <div className="m-5 p-2">
-                        <input type="password" name="Sifra" autoComplete="password" placeholder="Šifra" className="px-2 py-1 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm  shadow outline-none focus:outline-none focus:ring w-full"/>
+                        <input type="password" name="Sifra" autoComplete="password" placeholder="Šifra" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                     </div>
                     
                 
@@ -94,7 +94,7 @@ export default function Title (props:any) {
     }
 
     function Button(){
-        if(!isSaradnik){
+        if(!getter()){
             return (
                 <button onClick={() => setShowModal(true)} className="rounded bg-blue-500 py-2 px-4 text-white m-2">
                     Saradnik log in
@@ -102,7 +102,7 @@ export default function Title (props:any) {
             );
         }else{
             return (
-                <button onClick={() => props.setSaradnik(false)} className="rounded bg-blue-500 py-2 px-4 text-white m-2">
+                <button onClick={() => reseter() } className="rounded bg-blue-500 py-2 px-4 text-white m-2">
                     Saradnik log out
                 </button>
             );
@@ -116,7 +116,7 @@ export default function Title (props:any) {
                 width={45}
                 height={45}
                 alt="Logo seminara"
-                className="m-2"
+                className="m-2 rounded-sm"
             ></Image>
             <Link href="/">
                 <h1 className="text-[2rem] inline m-2 font-['Pacifico']">Seminar matematike u petnici</h1>
