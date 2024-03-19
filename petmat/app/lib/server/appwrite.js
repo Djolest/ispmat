@@ -2,18 +2,18 @@ import { Account, Client, Databases, Storage, ID, Query } from 'appwrite';
 import { z } from 'zod';
 
 const client = new Client();
+const databases = new Databases(client);
 const account = new Account(client);
 const storage = new Storage(client);
 
 const database = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID;
 const collection = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID;
 const collectionVesti = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_VESTI_ID;
-const bucket = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
+const bucketGalerija = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_GALERIJA_ID;
 
 
 client.setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_URL).setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID);
 
-const databases = new Databases(client);
 
 const VestSchema = z.object({
     Naslov: z.string().min(1),
@@ -122,4 +122,19 @@ export async function updateVest (formData, vestId, feedback) {
             };
         }
         feedback(200);
+}
+
+export async function listGalerija() {
+    const data = await storage.listFiles(
+        bucketGalerija
+    );
+    return data;
+}
+
+export async function getGalerijaFile() {
+    const data = await storage.getFileView(
+        bucketGalerija,
+        '65f9eb1b1a4e7666f630'
+    );
+    return data;
 }
