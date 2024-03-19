@@ -30,6 +30,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+        <meta name="google-site-verification" content="0gFnxdR_l8c4l3uVyQ5RBMNOy4HFeKvm-YU29A8G950" />
       </head>
       <body>
         <Providers>
