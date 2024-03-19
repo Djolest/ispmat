@@ -51,11 +51,29 @@ export const addVest = async (formData, feedback) => {
     console.log('Proslo sve!')
 }
 
-export async function listVesti (totalPages) {
+export async function listVesti () {
     const data = await databases.listDocuments(
         database, 
         collectionVesti, 
-        
+        [
+            Query.orderDesc("$createdAt"),
+            Query.limit(5)
+        ]
+        );
+    //console.log(data);
+    return data;
+    //console.log(vesti);
+    //setVesti(data);
+}
+
+export async function listVestiSve () {
+    const data = await databases.listDocuments(
+        database, 
+        collectionVesti, 
+        [
+            Query.orderDesc("$createdAt"),
+            Query.offset(5)
+        ]
         );
     //console.log(data);
     return data;
