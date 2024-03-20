@@ -1,5 +1,6 @@
 import { Account, Client, Databases, Storage, ID, Query } from 'appwrite';
 import { z } from 'zod';
+import { unstable_noStore as noStore } from 'next/cache';
 
 const client = new Client();
 const databases = new Databases(client);
@@ -53,6 +54,7 @@ export const addVest = async (formData, feedback) => {
 }
 
 export async function listVesti () {
+    noStore();
     const data = await databases.listDocuments(
         database, 
         collectionVesti, 
@@ -68,6 +70,7 @@ export async function listVesti () {
 }
 
 export async function listVestiSve () {
+    noStore();
     const data = await databases.listDocuments(
         database, 
         collectionVesti, 
@@ -126,6 +129,7 @@ export async function updateVest (formData, vestId, feedback) {
 }
 
 export async function listGalerija() {
+    noStore();
     const data = await storage.listFiles(
         bucketGalerija
     );
@@ -138,22 +142,6 @@ export async function getGalerijaFile() {
         '65f9eb1b1a4e7666f630'
     );
     return data;
-}
-
-export async function uploadGalerijaFile(file) {
-    const fileId = ID.unique();
-    
-    try {
-        await storage.createFile(
-        bucketGalerija,
-        fileId,
-        file
-        );
-    } catch (error) {
-        console.error('Failed to upload file', error);
-
-    }
-
 }
 
 export async function addGalerijaSeminar(formData, feedback){
@@ -215,6 +203,7 @@ export async function deleteGalerijaSeminar(seminarId, feedback) {
 }
 
 export async function listGalerijaSeminari() {
+    noStore();
     const data = await databases.listDocuments(
         database,
         collectionGalerijaSeminari,
@@ -224,4 +213,83 @@ export async function listGalerijaSeminari() {
     );
 
     return data;
+}
+
+export async function addSlika(formData, seminarId, feedback){
+    const opisSlike = formData.get('opisSlike');
+    const file = formData.get('slika');
+
+    if(!(file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg')){
+        feedback(401);
+        return {
+            message: 'Samo slike PNG i JPEG format su dozvoljene'
+        }
+    }
+    // prvo upload slike onda update baze
+    // const slikaId = ID.unique();
+
+    const slikaId = Math.random().toString(36).substring(0, 20);
+    console.log(slikaId);
+    try {
+        await storage.createFile(
+        bucketGalerija,
+        slikaId,
+        file
+        );
+    } catch (error) {
+        console.error('Failed to upload file', error);
+        feedback(400);
+    }
+
+    try {
+        console.log(seminarId, slikaId, opisSlike)
+        await databases.createDocument(
+            database,
+            collectionGalerijaAdrese,
+            ID.unique(),
+            {
+                seminarId,
+                slikaId,
+                opisSlike
+            }
+        );
+    } catch (error) {
+        feedback(400);
+        return {
+            message: 'Database error: Failed to upload file'
+        };
+    }
+    feedback(200);
+}
+
+export async function listSlike(seminarId){
+    noStore();
+
+    
+    const data = await databases.listDocuments(
+        database,
+        collectionGalerijaAdrese,
+        [
+            Query.equal('seminarId',[seminarId])
+        ]
+    );
+    
+    const slike = [];
+    const {documents: fetchSlike} = data;
+    //console.log(fetchSlike);
+    for(let i=0;i<fetchSlike.length;i++) {
+        //console.log(i);
+        //console.log('slika:', fetchSlike[i]);
+
+        let slikaId = fetchSlike[i].slikaId;
+        //console.log(slikaId);
+        const s = await storage.getFileView(
+            bucketGalerija,
+            slikaId
+        );
+
+        slike.push(s);
+    } 
+
+    return slike;
 }

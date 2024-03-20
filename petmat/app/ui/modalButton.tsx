@@ -15,6 +15,7 @@ export default function ModalButton (props: any) {
                 showModal={showModal}
                 setShowModal={setShowModal}
                 parent={props.parent}
+                seminarId={props.seminarId}
             />
         </div>);
 }

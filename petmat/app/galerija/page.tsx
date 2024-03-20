@@ -5,7 +5,7 @@ import Card from "../ui/galerija/Card";
 
 
 export const dynamic = 'force-dynamic';
-export default async function NovostiPage() {
+export default async function Galerija() {
     const {documents: seminari} = await listGalerijaSeminari();
     return (
         <>

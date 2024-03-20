@@ -1,7 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from "react";
-import { addVest, updateVest, addGalerijaSeminar, updateGalerijaSeminar } from "../lib/server/appwrite";
+import { addVest, updateVest, addGalerijaSeminar, updateGalerijaSeminar, addSlika } from "../lib/server/appwrite";
 
 
 export default function Modals(props:any){
@@ -22,7 +22,10 @@ export default function Modals(props:any){
         }
         if(props.parent == 'izmeniGalerijaSeminar'){
           updateGalerijaSeminar(formData, props.content.$id, setSuccess);
-      }
+        }
+        if(props.parent == 'galerijaSlike'){
+          addSlika(formData, props.seminarId, setSuccess);
+        }
     }
 
     const [charCount, setCharCount] = useState(0);
@@ -44,6 +47,7 @@ export default function Modals(props:any){
                     {props.parent == 'izmeniVest' ? 'Izmeni novost' : null}
                     {props.parent == 'galerijaSeminar' ? 'Nova grupa slika' : null}
                     {props.parent == 'izmeniGalerijaSeminar' ? 'Izmeni grupu slika' : null}
+                    {props.parent == 'galerijaSlike' ? 'Nova slika' : null}
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-50 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -107,6 +111,21 @@ export default function Modals(props:any){
                       </div>
                     : null}
 
+                    {props.parent == 'galerijaSlike' ?
+                      <div>
+                        
+                        <div className="m-5 p-2">
+                            <textarea name="opisSlike" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                        </div>
+                        <div>
+                            <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
+                        </div>
+                        <div className="m-5 p-2">
+                            <input type="file" name="slika" placeholder="Izaberite sliku" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                      </div>
+                    : null}
+
 
                     {/* Do ovde se menja */}
                     {success == 200 ? 
@@ -117,6 +136,11 @@ export default function Modals(props:any){
                     {success == 400 ? 
                         <div>
                             <p className="text-red-400 text-center text-sm p-2">Došlo je do greške!</p>
+                        </div> 
+                    : null}
+                    {success == 401 ? 
+                        <div>
+                            <p className="text-red-400 text-center text-sm p-2">Samo slke formata .png, .jpeg i .jpg su dozvoljene!</p>
                         </div> 
                     : null}
                      
