@@ -1,7 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from "react";
-import { addVest, updateVest } from "../lib/server/appwrite";
+import { addVest, updateVest, addGalerijaSeminar, updateGalerijaSeminar } from "../lib/server/appwrite";
 
 
 export default function Modals(props:any){
@@ -17,6 +17,12 @@ export default function Modals(props:any){
         if(props.parent == 'izmeniVest'){
             updateVest(formData, props.content.$id, setSuccess);
         }
+        if(props.parent == 'galerijaSeminar'){
+            addGalerijaSeminar(formData, setSuccess);
+        }
+        if(props.parent == 'izmeniGalerijaSeminar'){
+          updateGalerijaSeminar(formData, props.content.$id, setSuccess);
+      }
     }
 
     const [charCount, setCharCount] = useState(0);
@@ -36,6 +42,8 @@ export default function Modals(props:any){
                     {/* I ovo se menja */}
                     {props.parent == 'novosti' ? 'Nova novost' : null }
                     {props.parent == 'izmeniVest' ? 'Izmeni novost' : null}
+                    {props.parent == 'galerijaSeminar' ? 'Nova grupa slika' : null}
+                    {props.parent == 'izmeniGalerijaSeminar' ? 'Izmeni grupu slika' : null}
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-50 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -83,13 +91,27 @@ export default function Modals(props:any){
                       </div>
                     : null}
 
+                    {props.parent == 'galerijaSeminar' ? 
+                      <div>
+                          <div className="m-5 p-2">
+                              <input type="text" name="Ime" autoComplete="name" placeholder="Ime grupe slika" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                          </div>
+                      </div>
+                    : null}
 
+                    {props.parent == 'izmeniGalerijaSeminar' ? 
+                      <div>
+                          <div className="m-5 p-2">
+                              <input defaultValue={props.content.Ime} type="text" name="Ime" autoComplete="name" placeholder="Naslov novosti" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                          </div>
+                      </div>
+                    : null}
 
 
                     {/* Do ovde se menja */}
                     {success == 200 ? 
                         <div>
-                            <p className="text-green-400 text-center text-sm p-2">Vest uspešno objavljena!</p>
+                            <p className="text-green-400 text-center text-sm p-2">Uspešno objavljeno!</p>
                         </div> 
                     : null}
                     {success == 400 ? 

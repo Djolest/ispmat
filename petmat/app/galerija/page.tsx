@@ -1,23 +1,22 @@
-import { listGalerija, getGalerijaFile } from "../lib/server/appwrite"
-import Image from "next/image";
+import { Suspense } from "react";
+import ModalButton from "../ui/modalButton";
+import { listGalerijaSeminari } from "../lib/server/appwrite";
+import Card from "../ui/galerija/Card";
 
+
+export const dynamic = 'force-dynamic';
 export default async function NovostiPage() {
-    const galerija = await listGalerija();
-
-    //console.log(galerija);
-
-    const logo = await getGalerijaFile();
-
-    //console.log(logo);
-
+    const {documents: seminari} = await listGalerijaSeminari();
     return (
         <>
-            <Image 
-                src={logo.href}
-                alt="Logo"
-                width={400}
-                height={400}
-            />
+            <Suspense>
+                <div className="flex flex-col items-center">
+                    {seminari.map((seminar:any) => (
+                        <Card seminar={seminar} key={seminar.$id} />
+                    ))}
+                </div>
+            </Suspense> 
+            <ModalButton parent={'galerijaSeminar'} />
         </>
     );
 }

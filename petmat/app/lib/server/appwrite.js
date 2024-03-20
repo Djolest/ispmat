@@ -10,7 +10,8 @@ const database = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID;
 const collection = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID;
 const collectionVesti = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_VESTI_ID;
 const bucketGalerija = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_GALERIJA_ID;
-
+const collectionGalerijaSeminari = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_GALERIJA_SEMINARI_ID;
+const collectionGalerijaAdrese = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_GALERIJA_ADRESE_ID;
 
 client.setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_URL).setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID);
 
@@ -136,5 +137,91 @@ export async function getGalerijaFile() {
         bucketGalerija,
         '65f9eb1b1a4e7666f630'
     );
+    return data;
+}
+
+export async function uploadGalerijaFile(file) {
+    const fileId = ID.unique();
+    
+    try {
+        await storage.createFile(
+        bucketGalerija,
+        fileId,
+        file
+        );
+    } catch (error) {
+        console.error('Failed to upload file', error);
+
+    }
+
+}
+
+export async function addGalerijaSeminar(formData, feedback){
+    const Ime = formData.get('Ime');
+    try{
+        await databases.createDocument(
+            database,
+            collectionGalerijaSeminari,
+            ID.unique(),
+            {
+                Ime
+            }
+        );
+        
+    } catch (error) {
+        feedback(400);
+        return {
+            message: 'Databse error: Faild to create seminar',
+        };
+    }
+    feedback(200);
+}
+
+export async function updateGalerijaSeminar(formData, seminarId, feedback){
+    const Ime = formData.get('Ime');
+    try{
+        await databases.updateDocument(
+            database,
+            collectionGalerijaSeminari,
+            seminarId,
+            {
+                Ime
+            }
+        );
+    }catch(error){
+        feedback(400);
+        return {
+            message: 'Databse error: Faild to update seminar',
+        };
+    }
+    feedback(200);
+}
+
+export async function deleteGalerijaSeminar(seminarId, feedback) {
+    try {
+        await databases.deleteDocument(
+            database,
+            collectionGalerijaSeminari,
+            seminarId
+        );
+    } catch (error) {
+        feedback(400);
+        return {
+            message: 'Database error: Failed to delete seminar'
+        };
+    }
+
+  feedback(200);
+}
+
+export async function listGalerijaSeminari() {
+    const data = await databases.listDocuments(
+        database,
+        collectionGalerijaSeminari,
+        [
+            Query.orderDesc("$createdAt")
+        ]
+    );
+
     return data;
 }

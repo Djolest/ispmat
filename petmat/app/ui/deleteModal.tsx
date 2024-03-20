@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteVest } from "../lib/server/appwrite";
+import { deleteVest, deleteGalerijaSeminar } from "../lib/server/appwrite";
 
 
 export default function DeleteModal (props:any) {
@@ -8,6 +8,9 @@ export default function DeleteModal (props:any) {
         //console.log(formData);
         if(props.parent == 'obrsisVest'){
             deleteVest(props.ID, setSuccess);
+        }
+        if(props.parent == 'obrsisGalerijaSeminar'){
+            deleteGalerijaSeminar(props.ID, setSuccess);
         }
     }
 
