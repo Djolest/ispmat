@@ -1,7 +1,7 @@
 'use client'
 
 import { FormEvent, useState } from "react";
-import { addVest, updateVest, addGalerijaSeminar, updateGalerijaSeminar, addSlika } from "../lib/server/appwrite";
+import { addVest, updateVest, addGalerijaSeminar, updateGalerijaSeminar, addSlika, updateSlika } from "../lib/server/appwrite";
 
 
 export default function Modals(props:any){
@@ -26,6 +26,9 @@ export default function Modals(props:any){
         if(props.parent == 'galerijaSlike'){
           addSlika(formData, props.seminarId, setSuccess);
         }
+        if(props.parent == 'izmeniSlika'){
+          updateSlika(formData, props.content.documentId, setSuccess);
+        }
     }
 
     const [charCount, setCharCount] = useState(0);
@@ -48,6 +51,7 @@ export default function Modals(props:any){
                     {props.parent == 'galerijaSeminar' ? 'Nova grupa slika' : null}
                     {props.parent == 'izmeniGalerijaSeminar' ? 'Izmeni grupu slika' : null}
                     {props.parent == 'galerijaSlike' ? 'Nova slika' : null}
+                    {props.parent == 'izmeniSlika' ? 'Izmeni opis slike' : null}
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-50 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -122,6 +126,14 @@ export default function Modals(props:any){
                         </div>
                         <div className="m-5 p-2">
                             <input type="file" name="slika" placeholder="Izaberite sliku" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                      </div>
+                    : null}
+
+                    {props.parent == 'izmeniSlika' ? 
+                      <div>
+                        <div className="m-5 p-2">
+                            <input defaultValue={props.content.opis} type="text" name="opisSlike" autoComplete="name" placeholder="Naslov novosti" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                         </div>
                       </div>
                     : null}

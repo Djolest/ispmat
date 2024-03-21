@@ -2,6 +2,7 @@
 import { getter } from "@/app/lib/autho";
 import DeleteModal from "../deleteModal";
 import { useState } from "react";
+import Modals from "../modals";
 
 export default function ModalSlika(props:any){
     const [showModalObrisi, setShowModalObrisi] = useState(false);
@@ -48,6 +49,12 @@ export default function ModalSlika(props:any){
             parent='obrsisSliku'
             ID={props.slikaId}
             ID2={props.documentId}
+        />
+        <Modals 
+            showModal={showModalIzmein}
+            setShowModal={setShowModalIzmein}
+            parent='izmeniSlika'
+            content={props}
         />
     </div>);
 }

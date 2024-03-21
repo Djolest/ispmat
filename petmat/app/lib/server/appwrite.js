@@ -186,6 +186,28 @@ export async function updateGalerijaSeminar(formData, seminarId, feedback){
 }
 
 export async function deleteGalerijaSeminar(seminarId, feedback) {
+    try{
+        const data = await databases.listDocuments(
+            database,
+            collectionGalerijaAdrese,
+            [
+                Query.equal('seminarId', [seminarId])
+            ]
+        );
+        console.log('data je ', data);
+        if(data.total > 0){
+            feedback(402);
+            return {
+                message: 'Database error: Failed to delete seminar, seminar still has photos'
+            };
+        }
+    } catch (error) {
+        feedback(400);
+        return {
+            message: 'Database error: Failed to validate seminar'
+        };
+    }
+    
     try {
         await databases.deleteDocument(
             database,
@@ -310,6 +332,28 @@ export async function deleteSlika(slikaId, documentId, feedback){
         feedback(400);
         return {
             message: 'Database error: Failed to delete image'
+        };
+    }
+
+    feedback(200);
+}
+
+export async function updateSlika(formData, documentId, feedback){
+    const opisSlike = formData.get('opisSlike');
+
+    try {
+        await databases.updateDocument(
+            database,
+            collectionGalerijaAdrese,
+            documentId,
+            {
+                opisSlike
+            }
+        );
+    } catch (error) {
+        feedback(400);
+        return {
+            message: 'Database error: Failed to update opis'
         };
     }
 

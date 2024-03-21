@@ -53,6 +53,11 @@ export default function DeleteModal (props:any) {
                             <p className="text-red-400 text-center text-sm p-2">Došlo je do greške!</p>
                         </div> 
                     : null}
+                    {success == 402 ? 
+                        <div>
+                            <p className="text-red-400 text-center text-sm p-2">Moguće je obrisati samo seminar koji ne sadrži slike!</p>
+                        </div> 
+                    : null}
                      
                     
                     {/*footer*/}
