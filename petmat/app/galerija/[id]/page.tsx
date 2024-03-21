@@ -8,10 +8,9 @@ export default async function GalerijaSeminar({ params }: { params: { id: string
     //console.log('sa clienta:', slike[0].toString());
     return (
         <>
-            <div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {slike.map((slika) => (
-                    
-                    <Slika key={slika.href} slikaHerf={slika.toString()} />
+                    <Slika key={slika.slika.href} slikaHerf={slika.slika.toString()} opis={slika.opis}/>
                 ))}
             </div>
             <ModalButton parent={'galerijaSlike'} seminarId={params.id} />

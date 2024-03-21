@@ -264,7 +264,6 @@ export async function addSlika(formData, seminarId, feedback){
 
 export async function listSlike(seminarId){
     noStore();
-
     
     const data = await databases.listDocuments(
         database,
@@ -288,7 +287,7 @@ export async function listSlike(seminarId){
             slikaId
         );
 
-        slike.push(s);
+        slike.push({slika: s, opis: fetchSlike[i].opisSlike});
     } 
 
     return slike;

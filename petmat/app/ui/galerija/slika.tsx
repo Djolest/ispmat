@@ -1,17 +1,26 @@
 'use client'
-import Image from "next/image"
+import { useState } from "react";
+import ModalSlika from "./modalSlika";
 
 export default function Slika(props:any){
-    //console.log(props);
+    const [showSlika, setShowSlika] = useState(false);
     return (
-        <>
-            <Image
+        <div className="p-3 flex items-center">
+            <img
                 src={props.slikaHerf}
                 alt="slika"
-                width={200}
-                height={200}
-                
+                className="h-auto max-w-full rounded-lg cursor-pointer"
+                onClick={() => {
+                    // otvori modal slike
+                    setShowSlika(true);
+                }}
             />
-        </>
+            <ModalSlika 
+                href={props.slikaHerf}
+                opis={props.opis}
+                showSlika={showSlika}
+                setShowSlika={setShowSlika}
+            />
+        </div>
     );
 }
