@@ -6,6 +6,7 @@ import Nav from './ui/nav';
 import Title from "./ui/title";
 //import { useState, useContext, createContext } from "react";
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +40,7 @@ export default function RootLayout({
             <Nav />
             {children}
             <Analytics />
+            <SpeedInsights />
           {/*</isSaradnikContext.Provider>*/}
           </Providers>
       </body>
