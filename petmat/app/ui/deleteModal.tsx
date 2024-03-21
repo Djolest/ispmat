@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteVest, deleteGalerijaSeminar } from "../lib/server/appwrite";
+import { deleteVest, deleteGalerijaSeminar, deleteSlika } from "../lib/server/appwrite";
 
 
 export default function DeleteModal (props:any) {
@@ -11,6 +11,9 @@ export default function DeleteModal (props:any) {
         }
         if(props.parent == 'obrsisGalerijaSeminar'){
             deleteGalerijaSeminar(props.ID, setSuccess);
+        }
+        if(props.parent == 'obrsisSliku'){
+            deleteSlika(props.ID, props.ID2, setSuccess);
         }
     }
 
@@ -47,7 +50,7 @@ export default function DeleteModal (props:any) {
                     : null}
                     {success == 400 ? 
                         <div>
-                            <p className="text-red-400">Došlo je do greške!</p>
+                            <p className="text-red-400 text-center text-sm p-2">Došlo je do greške!</p>
                         </div> 
                     : null}
                      

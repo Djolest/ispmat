@@ -287,8 +287,31 @@ export async function listSlike(seminarId){
             slikaId
         );
 
-        slike.push({slika: s, opis: fetchSlike[i].opisSlike});
+        slike.push({slika: s, opis: fetchSlike[i].opisSlike, slikaId: slikaId, documentId: fetchSlike[i].$id});
     } 
 
     return slike;
+}
+
+export async function deleteSlika(slikaId, documentId, feedback){
+    // console.log('slika ID je ', slikaId);
+    try{
+        await storage.deleteFile(
+            bucketGalerija,
+            slikaId
+        );
+        console.log('proso')
+        await databases.deleteDocument(
+            database,
+            collectionGalerijaAdrese,
+            documentId
+        );
+    }catch(error){
+        feedback(400);
+        return {
+            message: 'Database error: Failed to delete image'
+        };
+    }
+
+    feedback(200);
 }

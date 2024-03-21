@@ -10,7 +10,7 @@ export default async function GalerijaSeminar({ params }: { params: { id: string
         <>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {slike.map((slika) => (
-                    <Slika key={slika.slika.href} slikaHerf={slika.slika.toString()} opis={slika.opis}/>
+                    <Slika key={slika.slika.href} slikaHerf={slika.slika.toString()} opis={slika.opis} slikaId={slika.slikaId} documentId={slika.documentId}/>
                 ))}
             </div>
             <ModalButton parent={'galerijaSlike'} seminarId={params.id} />

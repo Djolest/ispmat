@@ -20,6 +20,8 @@ export default function Slika(props:any){
                 opis={props.opis}
                 showSlika={showSlika}
                 setShowSlika={setShowSlika}
+                slikaId={props.slikaId}
+                documentId={props.documentId}
             />
         </div>
     );
