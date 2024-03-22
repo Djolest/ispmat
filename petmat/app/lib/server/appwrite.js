@@ -15,6 +15,7 @@ const bucketMaterijali = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_MATERIJALI_ID;
 const collectionGalerijaSeminari = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_GALERIJA_SEMINARI_ID;
 const collectionGalerijaAdrese = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_GALERIJA_ADRESE_ID;
 const collectionMaterijaliPredavanja = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_MATERIJALI_PREDAVANJA_ID;
+const collectionMaterijaliProjekti = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_MATERIJALI_PROJEKTI_ID;
 
 client.setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_URL).setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID);
 
@@ -336,6 +337,8 @@ export async function updateSlika(formData, documentId, feedback){
     feedback(200);
 }
 
+// materijali/predavanja
+
 export async function addMaterijalPredavanje(formData, feedback){
     const materijal = formData.get('materijal');
     const opis = formData.get('opis');
@@ -450,6 +453,106 @@ export async function updateMaterijal(formData, documentId, feedback){
         await databases.updateDocument(
             database,
             collectionMaterijaliPredavanja,
+            documentId,
+            {
+                opis
+            }
+        );
+    } catch (error) {
+        feedback(400);
+        return {
+            message: 'Database error: Failed to update opis'
+        };
+    }
+    feedback(200);
+}
+
+// materijali/projekti
+
+export async function addMaterijalProjekat(formData, feedback){
+    const materijal = formData.get('materijal');
+    const opis = formData.get('opis');
+    const materijalId = Math.random().toString(36).substring(0, 20);
+    try{
+        // prvo saljem materijal na storage onda unosim rekord u kolekciju
+        await storage.createFile(
+            bucketMaterijali,
+            materijalId,
+            materijal
+        );
+    }catch(error){
+        feedback(400);
+        return{
+            message: 'Storage error: failed to upload file'
+        }
+    }
+    try{
+        await databases.createDocument(
+            database,
+            collectionMaterijaliProjekti,
+            ID.unique(),
+            {
+                opis,
+                materijalId
+            }
+        );
+    }catch(error){
+        feedback(400);
+        return {
+            message: 'Database error: Failed to add material'
+        };
+    }
+    feedback(200);
+}
+
+export async function listMaterijaliProjekti(){
+    noStore();
+    const data = await databases.listDocuments(
+        database,
+        collectionMaterijaliProjekti,
+        [
+            Query.orderDesc("$createdAt")
+        ]
+    )
+    const materijali = [];
+    const {documents: fetchMaterijali} = data;
+    for(let i=0;i<fetchMaterijali.length;i++) {
+        let materijalId = fetchMaterijali[i].materijalId;
+        const m = await storage.getFileDownload(
+            bucketMaterijali,
+            materijalId
+        );
+        materijali.push({materijal: m, opis: fetchMaterijali[i].opis, materijalId: materijalId, documentId: fetchMaterijali[i].$id, datum: fetchMaterijali[i].$createdAt});
+    }
+    return materijali;
+}
+
+export async function deleteMaterijalProjekat(materijalId, documentId, feedback){
+    try {
+        await storage.deleteFile(
+            bucketMaterijali,
+            materijalId
+        );
+        await databases.deleteDocument(
+            database,
+            collectionMaterijaliProjekti,
+            documentId
+        );
+    } catch (error) {
+        feedback(400);
+        return {
+            message: 'Database error: Failed to delete material'
+        };
+    }
+    feedback(200);
+}
+
+export async function updateMaterijalProjekat(formData, documentId, feedback){
+    const opis = formData.get('opis');
+    try {
+        await databases.updateDocument(
+            database,
+            collectionMaterijaliProjekti,
             documentId,
             {
                 opis

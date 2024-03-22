@@ -12,6 +12,19 @@ export default function Card(props:any){
     const mesec = props.datum.slice(5,7);
     const dan = props.datum.slice(8,10);
 
+    let obrisiParent = '';
+    if(props.parent == 'materijaliProjekti'){
+        obrisiParent = 'obrisiMaterijaliProjekti';
+    }else{
+        obrisiParent = 'obrsisMaterijal'
+    }
+    let izmeniParent = '';
+    if(props.parent == 'materijaliProjekti'){
+        izmeniParent = 'izmeniMaterijaliProjekti';
+    }else{
+        izmeniParent = 'izmeniMaterijal'
+    }
+
     return (
         <>
             <div className="md:w-2/3 w-[95%]">
@@ -50,14 +63,14 @@ export default function Card(props:any){
         <DeleteModal 
             showModal={showModalObrisi}
             setShowModal={setShowModalObrisi}
-            parent='obrsisMaterijal'
+            parent={obrisiParent}
             ID={props.materijalId}
             ID2={props.documentId}
         />
         <Modals 
             showModal={showModalIzmein}
             setShowModal={setShowModalIzmein}
-            parent='izmeniMaterijal'
+            parent={izmeniParent}
             ID={props.documentId}
             opis={props.opis}
         />

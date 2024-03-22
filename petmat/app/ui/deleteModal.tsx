@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { deleteVest, deleteGalerijaSeminar, deleteSlika, deleteMaterijal } from "../lib/server/appwrite";
+import { deleteVest, 
+         deleteGalerijaSeminar, 
+         deleteSlika, 
+         deleteMaterijal,
+         deleteMaterijalProjekat } from "../lib/server/appwrite";
 
 
 export default function DeleteModal (props:any) {
@@ -17,6 +21,9 @@ export default function DeleteModal (props:any) {
         }
         if(props.parent == 'obrsisMaterijal') {
             deleteMaterijal(props.ID, props.ID2, setSuccess);
+        }
+        if(props.parent == 'obrisiMaterijaliProjekti'){
+            deleteMaterijalProjekat(props.ID, props.ID2, setSuccess);
         }
     }
 
