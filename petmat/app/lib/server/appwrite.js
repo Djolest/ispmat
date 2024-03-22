@@ -1,6 +1,6 @@
 import { Account, Client, Databases, Storage, ID, Query } from 'appwrite';
 import { z } from 'zod';
-import { unstable_noStore as noStore } from 'next/cache';
+import { unstable_noStore as noStore, revalidatePath } from 'next/cache';
 
 const client = new Client();
 const databases = new Databases(client);
@@ -11,11 +11,12 @@ const database = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID;
 const collection = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID;
 const collectionVesti = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_VESTI_ID;
 const bucketGalerija = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_GALERIJA_ID;
+const bucketMaterijali = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_MATERIJALI_ID;
 const collectionGalerijaSeminari = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_GALERIJA_SEMINARI_ID;
 const collectionGalerijaAdrese = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_GALERIJA_ADRESE_ID;
+const collectionMaterijaliPredavanja = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_MATERIJALI_PREDAVANJA_ID;
 
 client.setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_URL).setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID);
-
 
 const VestSchema = z.object({
     Naslov: z.string().min(1),
@@ -63,10 +64,7 @@ export async function listVesti () {
             Query.limit(5)
         ]
         );
-    //console.log(data);
     return data;
-    //console.log(vesti);
-    //setVesti(data);
 }
 
 export async function listVestiSve () {
@@ -79,10 +77,7 @@ export async function listVestiSve () {
             Query.offset(5)
         ]
         );
-    //console.log(data);
     return data;
-    //console.log(vesti);
-    //setVesti(data);
 }
 
 export async function deleteVest (vestId, feedback) {
@@ -207,7 +202,6 @@ export async function deleteGalerijaSeminar(seminarId, feedback) {
             message: 'Database error: Failed to validate seminar'
         };
     }
-    
     try {
         await databases.deleteDocument(
             database,
@@ -220,8 +214,7 @@ export async function deleteGalerijaSeminar(seminarId, feedback) {
             message: 'Database error: Failed to delete seminar'
         };
     }
-
-  feedback(200);
+    feedback(200);
 }
 
 export async function listGalerijaSeminari() {
@@ -233,14 +226,12 @@ export async function listGalerijaSeminari() {
             Query.orderDesc("$createdAt")
         ]
     );
-
     return data;
 }
 
 export async function addSlika(formData, seminarId, feedback){
     const opisSlike = formData.get('opisSlike');
     const file = formData.get('slika');
-
     if(!(file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg')){
         feedback(401);
         return {
@@ -249,7 +240,6 @@ export async function addSlika(formData, seminarId, feedback){
     }
     // prvo upload slike onda update baze
     // const slikaId = ID.unique();
-
     const slikaId = Math.random().toString(36).substring(0, 20);
     console.log(slikaId);
     try {
@@ -262,9 +252,7 @@ export async function addSlika(formData, seminarId, feedback){
         console.error('Failed to upload file', error);
         feedback(400);
     }
-
     try {
-        console.log(seminarId, slikaId, opisSlike)
         await databases.createDocument(
             database,
             collectionGalerijaAdrese,
@@ -286,7 +274,6 @@ export async function addSlika(formData, seminarId, feedback){
 
 export async function listSlike(seminarId){
     noStore();
-    
     const data = await databases.listDocuments(
         database,
         collectionGalerijaAdrese,
@@ -294,16 +281,10 @@ export async function listSlike(seminarId){
             Query.equal('seminarId',[seminarId])
         ]
     );
-    
     const slike = [];
     const {documents: fetchSlike} = data;
-    //console.log(fetchSlike);
     for(let i=0;i<fetchSlike.length;i++) {
-        //console.log(i);
-        //console.log('slika:', fetchSlike[i]);
-
         let slikaId = fetchSlike[i].slikaId;
-        //console.log(slikaId);
         const s = await storage.getFileView(
             bucketGalerija,
             slikaId
@@ -311,12 +292,10 @@ export async function listSlike(seminarId){
 
         slike.push({slika: s, opis: fetchSlike[i].opisSlike, slikaId: slikaId, documentId: fetchSlike[i].$id});
     } 
-
     return slike;
 }
 
 export async function deleteSlika(slikaId, documentId, feedback){
-    // console.log('slika ID je ', slikaId);
     try{
         await storage.deleteFile(
             bucketGalerija,
@@ -334,13 +313,11 @@ export async function deleteSlika(slikaId, documentId, feedback){
             message: 'Database error: Failed to delete image'
         };
     }
-
     feedback(200);
 }
 
 export async function updateSlika(formData, documentId, feedback){
     const opisSlike = formData.get('opisSlike');
-
     try {
         await databases.updateDocument(
             database,
@@ -356,6 +333,132 @@ export async function updateSlika(formData, documentId, feedback){
             message: 'Database error: Failed to update opis'
         };
     }
+    feedback(200);
+}
 
+export async function addMaterijalPredavanje(formData, feedback){
+    const materijal = formData.get('materijal');
+    const opis = formData.get('opis');
+    const materijalId = Math.random().toString(36).substring(0, 20);
+    try{
+        // prvo saljem materijal na storage onda unosim rekord u kolekciju
+        await storage.createFile(
+            bucketMaterijali,
+            materijalId,
+            materijal
+        );
+    }catch(error){
+        feedback(400);
+        return{
+            message: 'Storage error: failed to upload file'
+        }
+    }
+    try{
+        await databases.createDocument(
+            database,
+            collectionMaterijaliPredavanja,
+            ID.unique(),
+            {
+                opis,
+                materijalId
+            }
+        );
+    }catch(error){
+        feedback(400);
+        return {
+            message: 'Database error: Failed to add material'
+        };
+    }
+    feedback(200);
+}
+
+export async function listMaterijali5(){
+    noStore();
+    const data = await databases.listDocuments(
+        database,
+        collectionMaterijaliPredavanja,
+        [
+            Query.orderDesc("$createdAt"),
+            Query.limit(5)
+        ]
+    )
+    const materijali = [];
+    const {documents: fetchMaterijali} = data;
+    for(let i=0;i<fetchMaterijali.length;i++) {
+        let materijalId = fetchMaterijali[i].materijalId;
+        const m = await storage.getFileDownload(
+            bucketMaterijali,
+            materijalId
+        );
+        materijali.push({
+            materijal: m,
+            opis: fetchMaterijali[i].opis, 
+            materijalId: materijalId, 
+            documentId: fetchMaterijali[i].$id,
+            datum: fetchMaterijali[i].$createdAt
+        });
+    }
+    return materijali;
+}
+
+export async function listMaterijaliSve(){
+    noStore();
+    const data = await databases.listDocuments(
+        database,
+        collectionMaterijaliPredavanja,
+        [
+            Query.orderDesc("$createdAt"),
+            Query.offset(5)
+        ]
+    )
+    const materijali = [];
+    const {documents: fetchMaterijali} = data;
+    for(let i=0;i<fetchMaterijali.length;i++) {
+        let materijalId = fetchMaterijali[i].materijalId;
+        const m = await storage.getFileDownload(
+            bucketMaterijali,
+            materijalId
+        );
+        materijali.push({materijal: m, opis: fetchMaterijali[i].opis, materijalId: materijalId, documentId: fetchMaterijali[i].$id});
+    }
+}
+
+export async function deleteMaterijal(materijalId, documentId, feedback){
+    try {
+        await storage.deleteFile(
+            bucketMaterijali,
+            materijalId
+        );
+        await databases.deleteDocument(
+            database,
+            collectionMaterijaliPredavanja,
+            documentId
+        );
+    } catch (error) {
+        feedback(400);
+        return {
+            message: 'Database error: Failed to delete material'
+        };
+    }
+    feedback(200);
+}
+
+export async function updateMaterijal(formData, documentId, feedback){
+    const opis = formData.get('opis');
+    try {
+        await databases.updateDocument(
+            database,
+            collectionMaterijaliPredavanja,
+            documentId,
+            {
+                opis
+            }
+        );
+    } catch (error) {
+        feedback(400);
+        return {
+            message: 'Database error: Failed to update opis'
+        };
+    }
     feedback(200);
 }

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import MaterijaliLink from './nav/materijaliLink';
 
 export default function Nav() {
     return (
@@ -6,9 +7,7 @@ export default function Nav() {
         <Link href="/novosti">
             <span>Novosti</span>
         </Link>
-        <Link href="/materijali">
-            <span>Materijali</span>
-        </Link>
+        <MaterijaliLink />
         <Link href="/galerija">
             <span>Galerija</span>
         </Link>
