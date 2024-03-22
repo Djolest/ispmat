@@ -419,8 +419,9 @@ export async function listMaterijaliSve(){
             bucketMaterijali,
             materijalId
         );
-        materijali.push({materijal: m, opis: fetchMaterijali[i].opis, materijalId: materijalId, documentId: fetchMaterijali[i].$id});
+        materijali.push({materijal: m, opis: fetchMaterijali[i].opis, materijalId: materijalId, documentId: fetchMaterijali[i].$id, datum: fetchMaterijali[i].$createdAt});
     }
+    return materijali;
 }
 
 export async function deleteMaterijal(materijalId, documentId, feedback){
