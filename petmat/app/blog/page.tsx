@@ -18,6 +18,8 @@ export default async function Blog(){
             </div>
         </Suspense>
         <ModalButton parent={'blog'} />
-        <LoadMore />
+        {blogs.length == 5 ?
+            <LoadMore />
+        : null}
     </>);
 }

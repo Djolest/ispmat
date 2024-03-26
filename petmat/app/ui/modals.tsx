@@ -12,7 +12,9 @@ import { addVest,
          updateMaterijal,
          updateMaterijalProjekat,
          addBlog,
-         updateBlog } from "../lib/server/appwrite";
+         updateBlog,
+         addZadatak,
+         updateZadatak } from "../lib/server/appwrite";
 
 
 export default function Modals(props:any){
@@ -58,6 +60,12 @@ export default function Modals(props:any){
         if(props.parent == 'izmeniBlog'){
           updateBlog(formData, props.ID, setSuccess);
         }
+        if(props.parent == 'zadaci'){
+          addZadatak(formData, setSuccess);
+        }
+        if(props.parent == 'izmeniZadatak'){
+          updateZadatak(formData, props.ID, setSuccess);
+        }
     }
 
     const [charCount, setCharCount] = useState(0);
@@ -87,6 +95,8 @@ export default function Modals(props:any){
                     {props.parent == 'izmeniMaterijaliProjekti' ? 'Izmeni opis' : null}
                     {props.parent == 'blog' ? 'Novi blog' : null}
                     {props.parent == 'izmeniBlog' ? 'Izmeni blog' : null}
+                    {props.parent == 'zadaci' ? 'Novi zadatak' : null}
+                    {props.parent == 'izmeniZadatak' ? 'Izmeni zadatak' : null}
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-50 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -269,6 +279,32 @@ export default function Modals(props:any){
                         </div>
                         <div className="m-5 p-2">
                             <input defaultValue={props.content.youtubeLink} type="text" name="youtubeLink" placeholder="Dodajte youtube link (Opciono)" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                      </div>
+                    : null} 
+
+                    {props.parent == 'zadaci' ? 
+                      <div>  
+                        <div className="m-5 p-2">
+                            <input type="text" name="Title" placeholder="Naslov" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                        <div className="m-5 p-2">
+                            <input  type="text" name="Autor" placeholder="Autor" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                        <div className="m-5 p-2">
+                            <p>Pdf:</p>
+                            <input type="file" name="pdf" placeholder="Izaberite pdf" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                      </div>
+                    : null} 
+
+                    {props.parent == 'izmeniZadatak' ? 
+                      <div>  
+                        <div className="m-5 p-2">
+                            <input defaultValue={props.content.Title} type="text" name="Title" placeholder="Naslov" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                        <div className="m-5 p-2">
+                            <input defaultValue={props.content.Autor} type="text" name="Autor" placeholder="Autor" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                         </div>
                       </div>
                     : null} 

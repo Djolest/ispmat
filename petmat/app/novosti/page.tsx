@@ -19,7 +19,9 @@ export default async function NovostiPage() {
                 <ModalButton parent={'novosti'} />
             </div>
         </Suspense>
-        <LoadMore />
+        {vesti.length === 5 ?
+            <LoadMore />
+        : null}
         </div>
     )
 }

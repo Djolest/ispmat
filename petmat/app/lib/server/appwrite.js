@@ -17,6 +17,7 @@ const collectionGalerijaAdrese = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_GAL
 const collectionMaterijaliPredavanja = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_MATERIJALI_PREDAVANJA_ID;
 const collectionMaterijaliProjekti = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_MATERIJALI_PROJEKTI_ID;
 const collectionBlog = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_BLOG_ID;
+const collectionZadaci = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ZADACI_ID;
 
 client.setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_URL).setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID);
 
@@ -738,6 +739,148 @@ export async function updateBlog(formData, Id, feedback){
                 Abstract,
                 Autor,
                 youtubeLink,
+            }
+        );
+
+    } catch (error) {
+        feedback(400);
+        return {
+            message: 'Update error'
+        }
+    }
+    feedback(200);
+}
+
+// zadaci
+
+export async function addZadatak(formData, feedback){
+    const Title = formData.get('Title');
+    const Autor = formData.get('Autor');
+    const pdfFajl = formData.get('pdf');
+    const pdf = Math.random().toString(36).substring(0, 20);
+    try {
+        await storage.createFile(
+            bucketMaterijali,
+            pdf,
+            pdfFajl
+        );
+        await databases.createDocument(
+            database,
+            collectionZadaci,
+            ID.unique(),
+            {
+                Title,  
+                Autor,
+                pdf,
+            }
+        );
+
+    } catch (error) {
+        feedback(400);
+        return {
+        message: 'Database error: Failed to add zadatak'
+        };
+    }
+    feedback(200);
+}
+
+export async function listZadatak5(){ // dobija samo pocetne karice
+    noStore();
+    const data = await databases.listDocuments(
+        database,
+        collectionZadaci,
+        [
+            Query.limit(5),
+            Query.orderDesc("$createdAt")
+        ]
+    );
+
+    const {documents: fetchZadaci} = data;
+
+    return fetchZadaci;
+}
+
+export async function listZadatakSve(){ // malo po malo od kartica
+    noStore();
+    let data = [];
+    try{
+        data = await databases.listDocuments(
+            database,
+            collectionZadaci,
+            [
+                Query.offset(5),
+                Query.orderDesc("$createdAt")
+            ]
+        );
+    } catch (error){
+        console.error(error);
+    }
+
+    const {documents: fetchZadaci} = data;
+    if(fetchZadaci){
+        return fetchZadaci;
+    }else{
+        return [];
+    }
+}
+
+export async function getZadatak(Id){ // dobija pdf i dodtane materijale od bloga.
+    noStore();
+    const data = await databases.getDocument(
+        database,
+        collectionZadaci,
+        Id
+    );
+    const pdfId = data.pdf; 
+    const pdf = await storage.getFileView(
+        bucketMaterijali,
+        pdfId
+    );
+
+    return {data: data, pdf: pdf};
+}
+
+export async function deleteZadatak(Id, feedback){
+    try {
+        const data = await databases.getDocument(
+        database,
+        collectionZadaci,
+        Id
+        );
+
+        const pdf = data.pdf;
+
+        if(pdf){
+        await storage.deleteFile(bucketMaterijali, pdf);
+        }
+
+        await databases.deleteDocument(
+            database,
+            collectionZadaci,
+            Id
+        );
+    } catch (error) {
+        feedback(400);
+        return {
+            message: 'Database error: Failed to delete blog post'
+        };
+    }
+
+    feedback(200);
+}
+
+export async function updateZadatak(formData, Id, feedback){
+    const Title = formData.get('Title');
+    const Autor = formData.get('Autor');
+
+    try {
+        await databases.updateDocument(
+            database,
+            collectionZadaci,
+            Id,
+            {
+                Title,
+                Autor,
             }
         );
 

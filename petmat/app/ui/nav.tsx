@@ -17,6 +17,9 @@ export default function Nav() {
         <Link href="/blog">
             <span>Blog</span>
         </Link>
+        <Link href="/zadaci">
+            <span>Zadaci</span>
+        </Link>
     </nav>
   )
 }

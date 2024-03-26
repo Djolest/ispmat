@@ -4,7 +4,8 @@ import { deleteVest,
          deleteSlika, 
          deleteMaterijal,
          deleteMaterijalProjekat,
-         deleteBlog } from "../lib/server/appwrite";
+         deleteBlog,
+         deleteZadatak } from "../lib/server/appwrite";
 
 
 export default function DeleteModal (props:any) {
@@ -28,6 +29,9 @@ export default function DeleteModal (props:any) {
         }
         if(props.parent == 'obrisiBlog' ){
             deleteBlog(props.ID, setSuccess);
+        }
+        if(props.parent == 'obrisiZadatak'){
+            deleteZadatak(props.ID, setSuccess);
         }
     }
 
