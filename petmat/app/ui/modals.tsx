@@ -10,7 +10,9 @@ import { addVest,
          addMaterijalPredavanje,
          addMaterijalProjekat, 
          updateMaterijal,
-         updateMaterijalProjekat } from "../lib/server/appwrite";
+         updateMaterijalProjekat,
+         addBlog,
+         updateBlog } from "../lib/server/appwrite";
 
 
 export default function Modals(props:any){
@@ -50,17 +52,23 @@ export default function Modals(props:any){
         if(props.parent == 'izmeniMaterijaliProjekti'){
           updateMaterijalProjekat(formData, props.ID, setSuccess);
         }
+        if(props.parent == 'blog'){
+          addBlog(formData, setSuccess);
+        }
+        if(props.parent == 'izmeniBlog'){
+          updateBlog(formData, props.ID, setSuccess);
+        }
     }
 
     const [charCount, setCharCount] = useState(0);
     const [success, setSuccess] = useState(0);
 
     return (props.showModal ?
-        <div className="w-80">
+        <div className="w-80 fixed top-1">
           <div
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            className="justify-center items-center flex overflow-x-scroll overflow-y-auto fixed top-1 inset-0 z-50 outline-none focus:outline-none"
           >
-            <div className="relative w-2/3 my-6 mx-auto max-w-3xl">
+            <div className="relative w-2/3 my-6 mx-auto max-w-3xl max-h-screen overflow-x-scroll">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
@@ -77,6 +85,8 @@ export default function Modals(props:any){
                     {props.parent == 'materijaliProjekti' ? 'Novi materijal' : null}
                     {props.parent == 'izmeniMaterijal' ? 'Izmeni opis' : null}
                     {props.parent == 'izmeniMaterijaliProjekti' ? 'Izmeni opis' : null}
+                    {props.parent == 'blog' ? 'Novi blog' : null}
+                    {props.parent == 'izmeniBlog' ? 'Izmeni blog' : null}
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-50 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -213,8 +223,55 @@ export default function Modals(props:any){
                             <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
                         </div>
                       </div>
-                    : null}                  
+                    : null} 
 
+                    {props.parent == 'blog' ? 
+                      <div>  
+                        <div className="m-5 p-2">
+                            <input type="text" name="Title" placeholder="Naslov" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                        <div className="m-5 p-2">
+                            <input  type="text" name="Autor" placeholder="Autor" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                        <div className="m-5 p-2">
+                            <textarea  name="Abstract" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                        </div>
+                        <div>
+                            <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
+                        </div>
+                        <div className="m-5 p-2">
+                            <p>Pdf:</p>
+                            <input type="file" name="pdf" placeholder="Izaberite pdf" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                        <div className="m-5 p-2">
+                            <input type="text" name="youtubeLink" placeholder="Dodajte youtube link (Opciono)" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                        <div className="m-5 p-2">
+                            <p>Dodatni materijali:</p>
+                            <input type="file" name="dodatno" placeholder="Izaberite dodatan fajl (Opciono)" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                      </div>
+                    : null}                 
+
+                    {props.parent == 'izmeniBlog' ? 
+                      <div>  
+                        <div className="m-5 p-2">
+                            <input defaultValue={props.content.Title} type="text" name="Title" placeholder="Naslov" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                        <div className="m-5 p-2">
+                            <input defaultValue={props.content.Autor} type="text" name="Autor" placeholder="Autor" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                        <div className="m-5 p-2">
+                            <textarea defaultValue={props.content.Abstract} name="Abstract" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                        </div>
+                        <div>
+                            <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
+                        </div>
+                        <div className="m-5 p-2">
+                            <input defaultValue={props.content.youtubeLink} type="text" name="youtubeLink" placeholder="Dodajte youtube link (Opciono)" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        </div>
+                      </div>
+                    : null} 
 
                     {/* Do ovde se menja */}
                     {success == 200 ? 

@@ -148,7 +148,7 @@ export default function NovostiPage() {
                     <h1 className="w-[200px] px-3 font-semibold text-3xl text-gray-900 bg-white dark:text-white dark:bg-gray-900">Kontakt</h1>
                     <hr className="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
                 </div>
-                <p>Kontakt mail: example@gmail.com</p>
+                <p>Kontakt mail: petnicamat@gmail.com</p>
                 <br></br>
                 <p className="flex items-center"><img src="/instagram_icon.svg" className=" inline-block w-5 h-5"></img>Instagram: <a href="https://www.instagram.com/petnica_mat/?hl=en" className="text-blue-500 underline">@petnica_mat</a></p>
                 <br></br>

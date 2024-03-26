@@ -14,6 +14,9 @@ export default function Nav() {
         <Link href="/onama">
             <span>O nama</span>
         </Link>
+        <Link href="/blog">
+            <span>Blog</span>
+        </Link>
     </nav>
   )
 }
