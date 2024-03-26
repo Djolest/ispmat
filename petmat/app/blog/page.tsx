@@ -2,6 +2,7 @@ import { listBlog5 } from "../lib/server/appwrite";
 import { Suspense } from "react";
 import ModalButton from "../ui/modalButton";
 import Card from "../ui/blog/card";
+import LoadMore from "../ui/blog/loadMore";
 
 export const dynamic = 'force-dynamic';
 export default async function Blog(){
@@ -17,5 +18,6 @@ export default async function Blog(){
             </div>
         </Suspense>
         <ModalButton parent={'blog'} />
+        <LoadMore />
     </>);
 }

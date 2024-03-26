@@ -639,21 +639,28 @@ export async function listBlog5(){ // dobija samo pocetne karice
     return fetchBlogovi;
 }
 
-export async function listBlog5More(count){ // malo po malo od kartica
+export async function listBlogSve(){ // malo po malo od kartica
     noStore();
-    const data = await databases.listDocuments(
+    let data = [];
+    try{
+        data = await databases.listDocuments(
         database,
         collectionBlog,
         [
-            Query.offset(count*5),
-            Query.limit(5),
+            Query.offset(5),
             Query.orderDesc("$createdAt")
         ]
     );
+    } catch (error){
+        console.error(error);
+    }
 
     const {documents: fetchBlogovi} = data;
-
-    return fetchBlogovi;
+    if(fetchBlogovi){
+        return fetchBlogovi;
+    }else{
+        return [];
+    }
 }
 
 export async function getBlog(Id){ // dobija pdf i dodtane materijale od bloga.
