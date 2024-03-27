@@ -23,36 +23,36 @@ export default function Card(props:any){
     return (
         <>
         <div className="md:w-2/3 w-[95%]">
-            <a className="m-2 block w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <a className="m-2 block w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
                 <div onClick={() => setShowFull(!showFull)}>
-                    <h5 className="flex justify-between items-center mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <h5 className="flex justify-between items-center mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
                         
                         {props.vest.Naslov}
 
-                        <div className='h-6 inline bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500'>
+                        <div className='h-6 inline bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded    border border-gray-500'>
                             {dan + '/' + mesec + '/' + godina}
                         </div>
 
                     </h5>
                     {showFull ?
                         <div>
-                            <p className="font-normal text-gray-700 dark:text-gray-400">
+                            <p className="font-normal text-gray-700  ">
                                 {props.vest.Novost}
                             </p>
                             <br></br>
-                            <p className='p-2 font-normal text-gray-700 dark:text-gray-400'>
+                            <p className='p-2 font-normal text-gray-700  '>
                                 Piše: {props.vest.Potpis}
                             </p>
                             
                         </div>
                     :
-                        <p className="font-normal text-gray-700 dark:text-gray-400">
+                        <p className="font-normal text-gray-700  ">
                             {props.vest.Novost.slice(0, 100)}{props.vest.Novost.length >= 100 ? '...' : null}
                         </p>
                     }
                 </div>
                 {showFull && props.vest.$createdAt != props.vest.$updatedAt ? 
-                <div className='p-2 font-normal text-gray-700 dark:text-gray-400'>Izmenjeno: {props.vest.$updatedAt.slice(0,4) + '/' +
+                <div className='p-2 font-normal text-gray-700  '>Izmenjeno: {props.vest.$updatedAt.slice(0,4) + '/' +
                 props.vest.$updatedAt.slice(5,7) + '/' +
                 props.vest.$updatedAt.slice(8,10)}</div>
                 : null}

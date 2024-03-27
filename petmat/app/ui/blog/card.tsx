@@ -17,13 +17,13 @@ export default function Card(props:any){
 
     return (
         <div className="md:w-2/3 w-[95%]">
-            <div className="m-2 block w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div className="m-2 block w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
                 <Link href={`/blog/${props.blog.$id}`}>
-                    <h5 className="flex justify-between items-center mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    <h5 className="flex justify-between items-center mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
                         
                         {props.blog.Title}
 
-                        <div className='h-6 inline bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500'>
+                        <div className='h-6 inline bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded  border border-gray-500'>
                             {dan + '/' + mesec + '/' + godina}
                         </div>
 

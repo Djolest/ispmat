@@ -113,16 +113,16 @@ export default function Modals(props:any){
                     {props.parent == 'novosti' ? 
                       <div>
                           <div className="m-5 p-2">
-                              <input type="text" name="Naslov" autoComplete="name" placeholder="Naslov novosti" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                              <input type="text" name="Naslov" autoComplete="name" placeholder="Naslov novosti" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                           </div>
                           <div className="m-5 p-2">
-                              <textarea name="Novost" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                              <textarea name="Novost" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "></textarea>
                           </div>
                           <div>
                               <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
                           </div>
                           <div className="m-5 p-2">
-                              <input type="text" name="Potpis" autoComplete="name" placeholder="Potpis novinara" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                              <input type="text" name="Potpis" autoComplete="name" placeholder="Potpis novinara" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                           </div>
                       </div>
                     : null}
@@ -130,16 +130,16 @@ export default function Modals(props:any){
                     {props.parent == 'izmeniVest' ? 
                       <div>
                           <div className="m-5 p-2">
-                              <input defaultValue={props.content.Naslov}  type="text" name="Naslov" autoComplete="name" placeholder="Naslov novosti" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                              <input defaultValue={props.content.Naslov}  type="text" name="Naslov" autoComplete="name" placeholder="Naslov novosti" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                           </div>
                           <div className="m-5 p-2">
-                              <textarea defaultValue={props.content.Novost} name="Novost" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                              <textarea defaultValue={props.content.Novost} name="Novost" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "></textarea>
                           </div>
                           <div>
                               <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
                           </div>
                           <div className="m-5 p-2">
-                              <input defaultValue={props.content.Potpis} type="text" name="Potpis" autoComplete="name" placeholder="Potpis novinara" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                              <input defaultValue={props.content.Potpis} type="text" name="Potpis" autoComplete="name" placeholder="Potpis novinara" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                           </div>
                       </div>
                     : null}
@@ -147,7 +147,7 @@ export default function Modals(props:any){
                     {props.parent == 'galerijaSeminar' ? 
                       <div>
                           <div className="m-5 p-2">
-                              <input type="text" name="Ime" autoComplete="name" placeholder="Ime grupe slika" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                              <input type="text" name="Ime" autoComplete="name" placeholder="Ime grupe slika" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                           </div>
                       </div>
                     : null}
@@ -155,7 +155,7 @@ export default function Modals(props:any){
                     {props.parent == 'izmeniGalerijaSeminar' ? 
                       <div>
                           <div className="m-5 p-2">
-                              <input defaultValue={props.content.Ime} type="text" name="Ime" autoComplete="name" placeholder="Naslov novosti" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                              <input defaultValue={props.content.Ime} type="text" name="Ime" autoComplete="name" placeholder="Naslov novosti" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                           </div>
                       </div>
                     : null}
@@ -164,13 +164,13 @@ export default function Modals(props:any){
                       <div>
                         
                         <div className="m-5 p-2">
-                            <textarea name="opisSlike" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                            <textarea name="opisSlike" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "></textarea>
                         </div>
                         <div>
                             <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
                         </div>
                         <div className="m-5 p-2">
-                            <input type="file" name="slika" placeholder="Izaberite sliku" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input type="file" name="slika" placeholder="Izaberite sliku" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                       </div>
                     : null}
@@ -178,7 +178,7 @@ export default function Modals(props:any){
                     {props.parent == 'izmeniSlika' ? 
                       <div>
                         <div className="m-5 p-2">
-                            <input defaultValue={props.content.opis} type="text" name="opisSlike" autoComplete="name" placeholder="Naslov novosti" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input defaultValue={props.content.opis} type="text" name="opisSlike" autoComplete="name" placeholder="Naslov novosti" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                       </div>
                     : null}
@@ -187,13 +187,13 @@ export default function Modals(props:any){
                       <div>
                         
                         <div className="m-5 p-2">
-                            <textarea name="opis" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                            <textarea name="opis" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "></textarea>
                         </div>
                         <div>
                             <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
                         </div>
                         <div className="m-5 p-2">
-                            <input type="file" name="materijal" placeholder="Izaberite sliku" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input type="file" name="materijal" placeholder="Izaberite sliku" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                       </div>
                     : null}
@@ -202,13 +202,13 @@ export default function Modals(props:any){
                       <div>
                         
                         <div className="m-5 p-2">
-                            <textarea name="opis" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                            <textarea name="opis" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "></textarea>
                         </div>
                         <div>
                             <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
                         </div>
                         <div className="m-5 p-2">
-                            <input type="file" name="materijal" placeholder="Izaberite sliku" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input type="file" name="materijal" placeholder="Izaberite sliku" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                       </div>
                     : null}
@@ -216,7 +216,7 @@ export default function Modals(props:any){
                     {props.parent == 'izmeniMaterijal' ? 
                       <div>
                         <div className="m-5 p-2">
-                            <textarea defaultValue={props.opis} name="opis" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                            <textarea defaultValue={props.opis} name="opis" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "></textarea>
                         </div>
                         <div>
                             <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
@@ -227,7 +227,7 @@ export default function Modals(props:any){
                     {props.parent == 'izmeniMaterijaliProjekti' ? 
                       <div>
                         <div className="m-5 p-2">
-                            <textarea defaultValue={props.opis} name="opis" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                            <textarea defaultValue={props.opis} name="opis" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "></textarea>
                         </div>
                         <div>
                             <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
@@ -238,27 +238,27 @@ export default function Modals(props:any){
                     {props.parent == 'blog' ? 
                       <div>  
                         <div className="m-5 p-2">
-                            <input type="text" name="Title" placeholder="Naslov" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input type="text" name="Title" placeholder="Naslov" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                         <div className="m-5 p-2">
-                            <input  type="text" name="Autor" placeholder="Autor" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input  type="text" name="Autor" placeholder="Autor" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                         <div className="m-5 p-2">
-                            <textarea  name="Abstract" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                            <textarea  name="Abstract" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "></textarea>
                         </div>
                         <div>
                             <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
                         </div>
                         <div className="m-5 p-2">
                             <p>Pdf:</p>
-                            <input type="file" name="pdf" placeholder="Izaberite pdf" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input type="file" name="pdf" placeholder="Izaberite pdf" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                         <div className="m-5 p-2">
-                            <input type="text" name="youtubeLink" placeholder="Dodajte youtube link (Opciono)" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input type="text" name="youtubeLink" placeholder="Dodajte youtube link (Opciono)" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                         <div className="m-5 p-2">
                             <p>Dodatni materijali:</p>
-                            <input type="file" name="dodatno" placeholder="Izaberite dodatan fajl (Opciono)" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input type="file" name="dodatno" placeholder="Izaberite dodatan fajl (Opciono)" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                       </div>
                     : null}                 
@@ -266,19 +266,19 @@ export default function Modals(props:any){
                     {props.parent == 'izmeniBlog' ? 
                       <div>  
                         <div className="m-5 p-2">
-                            <input defaultValue={props.content.Title} type="text" name="Title" placeholder="Naslov" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input defaultValue={props.content.Title} type="text" name="Title" placeholder="Naslov" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                         <div className="m-5 p-2">
-                            <input defaultValue={props.content.Autor} type="text" name="Autor" placeholder="Autor" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input defaultValue={props.content.Autor} type="text" name="Autor" placeholder="Autor" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                         <div className="m-5 p-2">
-                            <textarea defaultValue={props.content.Abstract} name="Abstract" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                            <textarea defaultValue={props.content.Abstract} name="Abstract" onChange={e => {setCharCount(e.target.value.length)}} placeholder="Čujte i počujte, daje se na znanje..." className="block p-2.5 w-full h-40 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "></textarea>
                         </div>
                         <div>
                             <p className="text-gray-400 text-right text-xs pr-2 mr-5">{charCount}/1024</p>
                         </div>
                         <div className="m-5 p-2">
-                            <input defaultValue={props.content.youtubeLink} type="text" name="youtubeLink" placeholder="Dodajte youtube link (Opciono)" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input defaultValue={props.content.youtubeLink} type="text" name="youtubeLink" placeholder="Dodajte youtube link (Opciono)" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                       </div>
                     : null} 
@@ -286,14 +286,14 @@ export default function Modals(props:any){
                     {props.parent == 'zadaci' ? 
                       <div>  
                         <div className="m-5 p-2">
-                            <input type="text" name="Title" placeholder="Naslov" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input type="text" name="Title" placeholder="Naslov" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                         <div className="m-5 p-2">
-                            <input  type="text" name="Autor" placeholder="Autor" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input  type="text" name="Autor" placeholder="Autor" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                         <div className="m-5 p-2">
                             <p>Pdf:</p>
-                            <input type="file" name="pdf" placeholder="Izaberite pdf" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input type="file" name="pdf" placeholder="Izaberite pdf" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                       </div>
                     : null} 
@@ -301,10 +301,10 @@ export default function Modals(props:any){
                     {props.parent == 'izmeniZadatak' ? 
                       <div>  
                         <div className="m-5 p-2">
-                            <input defaultValue={props.content.Title} type="text" name="Title" placeholder="Naslov" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input defaultValue={props.content.Title} type="text" name="Title" placeholder="Naslov" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                         <div className="m-5 p-2">
-                            <input defaultValue={props.content.Autor} type="text" name="Autor" placeholder="Autor" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                            <input defaultValue={props.content.Autor} type="text" name="Autor" placeholder="Autor" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  "/>
                         </div>
                       </div>
                     : null} 

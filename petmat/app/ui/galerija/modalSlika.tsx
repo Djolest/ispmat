@@ -26,7 +26,7 @@ export default function ModalSlika(props:any){
                                 alt="slika"
                                 className="h-auto max-w-full rounded-lg"
                             />
-                            <p className="font-normal text-gray-700 dark:text-gray-400 p-3">{props.opis}</p>
+                            <p className="font-normal text-gray-700 p-3">{props.opis}</p>
                             {getter() ? 
                                 <div className="flex justify-between m-2"> 
                                     <button className="p-3 bg-gray-500 text-white active:bg-gray-600 font-bold uppercase text-sm rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
