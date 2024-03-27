@@ -29,7 +29,7 @@ export default function Card(props:any){
                         
                         {props.vest.Naslov}
 
-                        <div className='h-6 inline bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded    border border-gray-500'>
+                        <div className='h-6 inline bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded   border border-gray-500'>
                             {dan + '/' + mesec + '/' + godina}
                         </div>
 

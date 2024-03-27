@@ -14,7 +14,7 @@ export default function Card(props:any){
     const dan = props.zadatak.$createdAt.slice(8,10);
 
     return (
-        <div className="md:w-2/3 w-[95%]">
+        <div className="md:w-2/3 w-[95%] text-black">
             <div className="m-2 block w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
                 <Link href={`/zadaci/${props.zadatak.$id}`}>
                     <h5 className="flex justify-between items-center mb-2 text-2xl font-bold tracking-tight text-gray-900 ">

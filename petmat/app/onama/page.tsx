@@ -68,7 +68,7 @@ export default function NovostiPage() {
     ];
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center text-black">
             <div className="md:w-2/3 w-[95%]">
                 {/** Imao bih 5 dela, o petnici, o seminaru, saradnicki tim, cesta pitanja i kontak */}
                 {/** O petnici */}

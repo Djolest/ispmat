@@ -110,7 +110,7 @@ export default function Title (props:any) {
     }
 
     return (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between text-black">
             <Image 
                 src='/petmat_logo.png'
                 width={45}
@@ -119,7 +119,7 @@ export default function Title (props:any) {
                 className="m-2 rounded-sm"
             ></Image>
             <Link href="/">
-                <h1 className="text-[2rem] inline m-2 font-['Pacifico']">Seminar matematike u petnici</h1>
+                <h1 className="text-[2rem] inline m-2 font-['Pacifico'] text-black">Seminar matematike u petnici</h1>
             </Link>
             <Button />
             <Modal />

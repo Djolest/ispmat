@@ -27,7 +27,7 @@ export default function Home() {
             <div className="text-center m-4">seminara matematike u Petnici!</div>
           </h1>
           
-          <div className="flex-col">
+          <div className="flex-col text-black">
             <p className="text-center m-2">Pročitajte najnovije vesti na linku {' '}
               <Link href='/novosti' className="underline"> novosti </Link>
             </p>

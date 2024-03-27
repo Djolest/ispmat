@@ -30,7 +30,7 @@ export default function Card(props:any){
             <div className="md:w-2/3 w-[95%]">
                 <div className="m-2 block w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
                         <div className="flex items-center mb-2 tracking-tight text-gray-900  ">
-                            <div className='flex-none h-6 inline bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded  border-gray-500'>
+                            <div className='h-6 inline bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded   border border-gray-500'>
                                 {dan + '/' + mesec + '/' + godina}
                             </div>
                             <p className="flex-grow m-2">{props.opis}</p>
